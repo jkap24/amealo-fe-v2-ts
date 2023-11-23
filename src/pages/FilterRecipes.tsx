@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import AmealoRecipeData from '../data/amealo-recipe-data';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
 import AmealoIngredientSelector from '../components/AmealoIngredientSelector/AmealoIngredientSelector';
