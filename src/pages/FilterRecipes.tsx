@@ -12,15 +12,32 @@ import AmealoIngredientSelector from '../components/AmealoIngredientSelector/Ame
 // (have the ingredients Carrots OR Spinach)
 
 function FilterRecipes() {
-    const [recipeObjectsArray] = useState(AmealoRecipeData.amealoRecipes)
-    // const [recipeArray, setRecipeArray] = useState(recipeObjectsArray)
 
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchParam] = useState(["name", "DietType", "mealTime", "ingredients"]) // add more keys from recipe data if you want to search by it.
-    const [selectedIngredients, setSelectedIngredients] = useState([]);
+    interface IRecipe {
+        id: number;
+        name: string;
+        mealTime: string;
+        ingredients: {
+            id: number;
+            name: string;
+            quantity: string;
+            unit: string;
+        }[];
+        appliances: string[];
+        recommendedProducts: string[];
+        DietaryRequirements: string[];
+        DietType: string[];
+        CookingMethod: string[];
+        cuisine: string;
+    }
+
+    const [recipeObjectsArray] = useState<IRecipe[]>(AmealoRecipeData.amealoRecipes)
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [searchParam] = useState<string[]>(["name", "DietType", "mealTime", "ingredients"]) // add more keys from recipe data if you want to search by it.
+    const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
 
 
-    function search(items: any) {
+    function search(items: any[]) {
         return items.filter((item: any) => {
             return searchParam.some((newItem) => {
                 return (
@@ -34,7 +51,7 @@ function FilterRecipes() {
     }
 
     // Function to filter recipes based on ingredient IDs
-    function filterRecipesByIngredientId(recipes: any[], ingredients: string | any[]) {
+    function filterRecipesByIngredientId(recipes: IRecipe[], ingredients: string[]) {
         console.log(ingredients)
         if (ingredients.length === 0) {
             return recipes;
@@ -49,12 +66,6 @@ function FilterRecipes() {
     const filteredRecipes = filterRecipesByIngredientId(recipeObjectsArray, selectedIngredients);
 
     filteredRecipes.forEach(recipe => console.log(recipe.name));
-
-    // useEffect(() => {
-    //     //Runs on the first render
-    //     //And any time any filteredRecipes(dependency) value changes
-    //     console.log(selectedIngredients)
-    // }, [selectedIngredients]);
 
     return (
         <>
@@ -116,7 +127,7 @@ function FilterRecipes() {
 
                 </div>
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                    {search(filteredRecipes).map((recipe: { name: any; }) => {
+                    {search(filteredRecipes).map((recipe: IRecipe) => {
                         return (
                             <RecipeCard name={recipe.name} />
                         );

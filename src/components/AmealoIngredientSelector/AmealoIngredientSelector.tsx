@@ -4,7 +4,7 @@ import IngredientsData from "../../data/ingredients-data";
 function AmealoIngredientSelector(props: any) {
   const [checkedIngredients, setCheckedIngredients] = useState<string[]>([]);
 
-  function handleIngredientSelected(ingredientName: any) {
+  function handleIngredientSelected(ingredientName: string) {
     // adds to the array if its not already there, removes if it is
     checkedIngredients.includes(ingredientName) ? checkedIngredients.splice(checkedIngredients.indexOf(ingredientName), 1) : checkedIngredients.push(ingredientName)
     setCheckedIngredients(checkedIngredients)
