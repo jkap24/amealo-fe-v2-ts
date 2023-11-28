@@ -2,6 +2,7 @@ import { useState } from 'react';
 import AmealoRecipeData from '../data/amealo-recipe-data';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
 import AmealoIngredientSelector from '../components/AmealoIngredientSelector/AmealoIngredientSelector';
+import { IRecipe } from '../types';
 
 // Filtering Functionality Initial Requirements
 
@@ -12,24 +13,6 @@ import AmealoIngredientSelector from '../components/AmealoIngredientSelector/Ame
 // (have the ingredients Carrots OR Spinach)
 
 function FilterRecipes() {
-
-    interface IRecipe {
-        id: number;
-        name: string;
-        mealTime: string;
-        ingredients: {
-            id: number;
-            name: string;
-            quantity: string;
-            unit: string;
-        }[];
-        appliances: string[];
-        recommendedProducts: string[];
-        DietaryRequirements: string[];
-        DietType: string[];
-        CookingMethod: string[];
-        cuisine: string;
-    }
 
     const [recipeObjectsArray] = useState<IRecipe[]>(AmealoRecipeData.amealoRecipes)
     const [searchQuery, setSearchQuery] = useState<string>("");
