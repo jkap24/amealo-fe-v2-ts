@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import AmealoRecipeData from '../data/amealo-recipe-data';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
 import AmealoIngredientSelector from '../components/AmealoIngredientSelector/AmealoIngredientSelector';
@@ -12,7 +12,7 @@ import { IRecipe } from '../types';
 // Select recipes that:
 // (have the ingredients Carrots OR Spinach)
 
-function FilterRecipes() {
+const FilterRecipes: FunctionComponent = () => {
 
     const [recipeObjectsArray] = useState<IRecipe[]>(AmealoRecipeData.amealoRecipes)
     const [searchQuery, setSearchQuery] = useState<string>("");
