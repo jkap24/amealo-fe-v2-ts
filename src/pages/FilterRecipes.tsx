@@ -75,7 +75,7 @@ const FilterRecipes: FunctionComponent = () => {
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         Diet Type
                     </button>
-                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{width: "20rem"}}>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ width: "20rem" }}>
                         <form className="d-flex m-3" role="search">
                             <input
                                 className="form-control me-2"
@@ -112,7 +112,9 @@ const FilterRecipes: FunctionComponent = () => {
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                     {search(filteredRecipes).map((recipe: IRecipe) => {
                         return (
-                            <RecipeCard name={recipe.name} />
+                            <RecipeCard
+                                recipe={recipe}
+                            />
                         );
                     })}
                 </div>

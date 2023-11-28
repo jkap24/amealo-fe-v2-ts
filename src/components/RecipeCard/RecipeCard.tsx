@@ -1,17 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { FunctionComponent } from 'react';
 import sampleRecipeImage from '../../assets/sausage-pasta.jpeg'
+import { IRecipe } from '../../types';
 
+interface IProps {
+  recipe: IRecipe
+}
 
-function RecipeCard(props: any) {
+const RecipeCard: FunctionComponent<IProps> = ({ recipe }) => {
   return (
     <div className="col my-3">
 
       <div className="card h-100">
         <img src={sampleRecipeImage} className="card-img-top" alt="..." />
         <div className="card-body">
-          <h5 className="card-title">{props.name}</h5>
-          <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <h5 className="card-title">{recipe.name}</h5>
+          <p className="card-text">{recipe.description}</p>
         </div>
         <div className="m-3">
           {/* <Button variant="primary">Recipe Details</Button> */}
@@ -21,14 +24,5 @@ function RecipeCard(props: any) {
     </div>
   );
 }
-
-
-RecipeCard.propTypes = {
-  name: PropTypes.string.isRequired,
-};
-
-RecipeCard.defaultProps = {
-  name: 'Guest',
-};
 
 export default RecipeCard;

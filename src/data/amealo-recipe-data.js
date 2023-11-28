@@ -7,6 +7,7 @@ const AmealoRecipeData = {
             "id": 0,
             "name": "Organic Cottage Pie",
             "mealTime": "Dinner",
+            "description": "A Rustic Classic",
             "ingredients": [
                 {
                     "id": 1,
@@ -27,6 +28,7 @@ const AmealoRecipeData = {
             "id": 1,
             "name": "Classic Meatballs",
             "mealTime": "Dinner",
+            "description": "An Italian Staple",
             "ingredients": [
                 {
                     "id": 2,
@@ -46,6 +48,7 @@ const AmealoRecipeData = {
             "id": 3,
             "name": "Perfect Scrambled Eggs",
             "mealTime": "Breakfast",
+            "description": "Scrambled eggs cooked to perfection!",
             "ingredients": [
                 {
                     "id": 3,
@@ -65,6 +68,7 @@ const AmealoRecipeData = {
             "id": 4,
             "name": "Turkey Twizzlers",
             "mealTime": "Lunch",
+            "description": "A meal certain to bring chronic illness!",
             "ingredients": [
                 {
                     "id": 3,

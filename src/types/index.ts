@@ -2,6 +2,7 @@ export interface IRecipe {
     id: number;
     name: string;
     mealTime: string;
+    description: string;
     ingredients: {
         id: number;
         name: string;
