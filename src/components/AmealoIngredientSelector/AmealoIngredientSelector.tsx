@@ -12,14 +12,7 @@ function AmealoIngredientSelector(props: any) {
     const newArray = Array.from(checkedIngredients)
     console.log(newArray)
     props.setSelectedIngredients(newArray)
-    // return checkedIngredients
   }
-
-  useEffect(() => {
-    // console.log("Ingredients have changed:", checkedIngredients);
-    // You can perform any side effects here, e.g., save to local storage, make API requests, etc.
-    console.log(checkedIngredients)
-  }, [checkedIngredients]);
 
   return (
     <>

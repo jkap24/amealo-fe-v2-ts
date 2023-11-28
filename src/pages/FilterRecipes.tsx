@@ -3,6 +3,7 @@ import AmealoRecipeData from '../data/amealo-recipe-data';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
 import AmealoIngredientSelector from '../components/AmealoIngredientSelector/AmealoIngredientSelector';
 import { IRecipe } from '../types';
+import RecipeDropdownFilter from '../components/RecipeDropdownFilter/RecipeDropdownFilter';
 
 // Filtering Functionality Initial Requirements
 
@@ -48,8 +49,6 @@ const FilterRecipes: FunctionComponent = () => {
 
     const filteredRecipes = filterRecipesByIngredientId(recipeObjectsArray, selectedIngredients);
 
-    filteredRecipes.forEach(recipe => console.log(recipe.name));
-
     return (
         <>
             <div className='container'>
@@ -70,45 +69,11 @@ const FilterRecipes: FunctionComponent = () => {
                         selectedIngredients={selectedIngredients}
                     />
                 </div>
-                <div className="mb-2 mt-4">
-
-                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        Diet Type
-                    </button>
-                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ width: "20rem" }}>
-                        <form className="d-flex m-3" role="search">
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                            />
-                        </form>
-                        <div className="list-group list-group-flush">
-                            <label className="list-group-item">
-                                <input className="form-check-input me-1" type="checkbox" value="" />
-                                First checkbox
-                            </label>
-                            <label className="list-group-item">
-                                <input className="form-check-input me-1" type="checkbox" value="" />
-                                Second checkbox
-                            </label>
-                            <label className="list-group-item">
-                                <input className="form-check-input me-1" type="checkbox" value="" />
-                                Third checkbox
-                            </label>
-                            <label className="list-group-item">
-                                <input className="form-check-input me-1" type="checkbox" value="" />
-                                Fourth checkbox
-                            </label>
-                            <label className="list-group-item">
-                                <input className="form-check-input me-1" type="checkbox" value="" />
-                                Fifth checkbox
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
+                <RecipeDropdownFilter
+                    name="Ingredients"
+                    setSelectedIngredients={setSelectedIngredients}
+                    selectedIngredients={selectedIngredients}
+                />
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                     {search(filteredRecipes).map((recipe: IRecipe) => {
                         return (
