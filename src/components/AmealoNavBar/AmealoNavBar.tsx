@@ -30,7 +30,39 @@ const AmealoNavBar: FunctionComponent<IProps> = ({ searchQuery, setSearchQuery }
                                 </li>
                             </ul>
                         </div>
-                        <div className="input-group me-auto" role="search" style={{ width: "65%" }}>
+                        <div className="me-auto" style={{ width: "65%" }}>
+                            <ul className="navbar-nav mb-2 mb-lg-0">
+                                <li className="nav-item dropdown" style={{ width: "100%" }}>
+                                    <div className="input-group me-auto" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <input
+                                            type="search"
+                                            name="search-form"
+                                            id="search-form"
+                                            className="form-control"
+                                            placeholder="Search Recipes..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            onClick={() => console.log('Open suggestions')}
+                                        />
+                                    </div>
+                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ width: "100%" }}>
+                                        <div className="list-group list-group-flush">
+                                            <label className="list-group-item">
+                                                <input
+                                                    className="form-check-input me-1"
+                                                    type="checkbox"
+                                                    id="1"
+                                                    value="test ingred"
+                                                    key="1"
+                                                />
+                                                test ingred
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        {/* <div className="input-group me-auto" role="search" style={{ width: "65%" }}>
                             <input
                                 type="search"
                                 name="search-form"
@@ -41,7 +73,7 @@ const AmealoNavBar: FunctionComponent<IProps> = ({ searchQuery, setSearchQuery }
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 onClick={() => console.log('Open suggestions')}
                             />
-                        </div>
+                        </div> */}
                         <div className=''>
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
