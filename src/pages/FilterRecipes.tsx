@@ -1,9 +1,9 @@
 import { FunctionComponent, useState } from 'react';
 import AmealoRecipeData from '../data/amealo-recipe-data';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
-import AmealoIngredientSelector from '../components/AmealoIngredientSelector/AmealoIngredientSelector';
 import { IRecipe } from '../types';
 import RecipeDropdownFilter from '../components/RecipeDropdownFilter/RecipeDropdownFilter';
+import AmealoNavBar from '../components/AmealoNavBar/AmealoNavBar';
 
 // Filtering Functionality Initial Requirements
 
@@ -36,7 +36,6 @@ const FilterRecipes: FunctionComponent = () => {
 
     // Function to filter recipes based on ingredient IDs
     function filterRecipesByIngredientId(recipes: IRecipe[], ingredients: string[]) {
-        console.log(ingredients)
         if (ingredients.length === 0) {
             return recipes;
         } else
@@ -51,24 +50,8 @@ const FilterRecipes: FunctionComponent = () => {
 
     return (
         <>
+            <AmealoNavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             <div className='container'>
-                <div className="mb-2 mt-4">
-                    <input
-                        type="search"
-                        name="search-form"
-                        id="search-form"
-                        className="form-control"
-                        placeholder="Search Recipes..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                </div>
-                <div className="mb-2 mt-4">
-                    <AmealoIngredientSelector
-                        setSelectedIngredients={setSelectedIngredients}
-                        selectedIngredients={selectedIngredients}
-                    />
-                </div>
                 <RecipeDropdownFilter
                     name="Ingredients"
                     setSelectedIngredients={setSelectedIngredients}
@@ -77,9 +60,7 @@ const FilterRecipes: FunctionComponent = () => {
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                     {search(filteredRecipes).map((recipe: IRecipe) => {
                         return (
-                            <RecipeCard
-                                recipe={recipe}
-                            />
+                            <RecipeCard recipe={recipe}/>
                         );
                     })}
                 </div>

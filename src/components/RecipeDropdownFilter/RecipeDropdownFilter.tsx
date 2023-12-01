@@ -8,18 +8,30 @@ interface IProps {
     setSelectedIngredients: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-
 const RecipeDropdownFilter: FunctionComponent<IProps> = ({ name, selectedIngredients, setSelectedIngredients }) => {
     const [ingredientsData] = useState<IIngredient[]>(IngredientsData.ingredients)
     const [checkedIngredients, setCheckedIngredients] = useState<string[]>([]);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [searchParam] = useState<string[]>(["name"]) // add more keys from recipe data if you want to search by it.
+
+    function search(items: any[]) {
+        return items.filter((item: any) => {
+            return searchParam.some((newItem) => {
+                return (
+                    item[newItem]
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(searchQuery.toLowerCase()) > -1
+                );
+            });
+        });
+    }
 
     function handleIngredientSelected(ingredientName: string) {
         // adds to the array if its not already there, removes if it is
         checkedIngredients.includes(ingredientName) ? checkedIngredients.splice(checkedIngredients.indexOf(ingredientName), 1) : checkedIngredients.push(ingredientName)
         setCheckedIngredients(checkedIngredients)
-        console.log(checkedIngredients)
         const newArray = Array.from(checkedIngredients)
-        console.log(newArray)
         setSelectedIngredients(newArray)
     }
     return (
@@ -33,13 +45,15 @@ const RecipeDropdownFilter: FunctionComponent<IProps> = ({ name, selectedIngredi
                         <input
                             className="form-control me-2"
                             type="search"
-                            placeholder="Search"
+                            placeholder="Search Ingredients..."
+                            value={searchQuery}
                             aria-label="Search"
+                            onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </form>
                 </div>
                 <div className="list-group list-group-flush" style={{ maxHeight: "10rem", overflow: "scroll" }}>
-                    {ingredientsData.map((ingredient, index) => {
+                    {search(ingredientsData).map((ingredient: IIngredient, index: number) => {
                         const ingredientId = ingredient.ingredient_id
                         const ingredientName = ingredient.name
                         return (

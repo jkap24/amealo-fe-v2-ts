@@ -1,7 +1,13 @@
-import React from 'react';
-// import GenerateMealPlanModal from '../GenerateMealPlanModal/GenerateMealPlanModal';
+import { FunctionComponent } from "react";
 
-function AmealoNavBar() {
+interface IProps {
+    searchQuery: string
+    setSearchQuery: React.Dispatch<React.SetStateAction<string>>
+}
+
+const AmealoNavBar: FunctionComponent<IProps> = ({ searchQuery, setSearchQuery }) => {
+
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary position-static">
@@ -11,38 +17,40 @@ function AmealoNavBar() {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/home">Home</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/">Sign In</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/dashboard">Dashboard</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/drag">DragnDrop</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/filterRecipes">Recipes</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-                            </li>
-                        </ul>
-                        <div className='row mb-2 mt-2 pe-2'>
-                            <div className='col'>
-                                {/* <GenerateMealPlanModal /> */}
-                            </div>
+                        <div className="me-auto">
+                            <ul className="navbar-nav mb-2 mb-lg-0">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/dashboard">Dashboard</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/drag">Blog</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/filterRecipes">Recipes</a>
+                                </li>
+                            </ul>
                         </div>
-                        <div className='row mb-2 mt-2'>
-                            <div className='col'>
-                                <form className="d-flex" role="search">
-                                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                    <button className="btn btn-outline-success" type="submit">Search</button>
-                                </form>
-                            </div>
+                        <div className="input-group me-auto" role="search" style={{ width: "65%" }}>
+                            <input
+                                type="search"
+                                name="search-form"
+                                id="search-form"
+                                className="form-control"
+                                placeholder="Search Recipes..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onClick={() => console.log('Open suggestions')}
+                            />
+                        </div>
+                        <div className=''>
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/">Sign In</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/">Favourites</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
