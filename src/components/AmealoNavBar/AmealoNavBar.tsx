@@ -36,8 +36,6 @@ const AmealoNavBar: FunctionComponent<IProps> = ({ searchQuery, setSearchQuery }
                                     <div className="input-group me-auto" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         <input
                                             type="search"
-                                            name="search-form"
-                                            id="search-form"
                                             className="form-control"
                                             placeholder="Search Recipes..."
                                             value={searchQuery}
@@ -47,16 +45,10 @@ const AmealoNavBar: FunctionComponent<IProps> = ({ searchQuery, setSearchQuery }
                                     </div>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ width: "100%" }}>
                                         <div className="list-group list-group-flush">
-                                            <label className="list-group-item">
-                                                <input
-                                                    className="form-check-input me-1"
-                                                    type="checkbox"
-                                                    id="1"
-                                                    value="test ingred"
-                                                    key="1"
-                                                />
-                                                test ingred
-                                            </label>
+                                            <a href="#" className="list-group-item list-group-item-action">A simple default list group item</a>
+                                            <a href="#" className="list-group-item list-group-item-action">A simple default list group item</a>
+                                            <a href="#" className="list-group-item list-group-item-action">A simple default list group item</a>
+                                            <a href="#" className="list-group-item list-group-item-action">A simple default list group item</a>
                                         </div>
                                     </div>
                                 </li>
