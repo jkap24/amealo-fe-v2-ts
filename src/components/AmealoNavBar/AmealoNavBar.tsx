@@ -1,12 +1,49 @@
 import { FunctionComponent } from "react";
+import { IRecipe } from '../../types';
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+
 
 interface IProps {
-    searchQuery: string
+    recipeObjectsArray: IRecipe[]
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
-const AmealoNavBar: FunctionComponent<IProps> = ({ searchQuery, setSearchQuery }) => {
+const AmealoNavBar: FunctionComponent<IProps> = ({ recipeObjectsArray, setSearchQuery }) => {
 
+    const handleOnClear = () => {
+        console.log('Focused')
+        setSearchQuery("")
+    }
+
+    const handleOnSearch = (string: string, results: IRecipe[]) => {
+        // onSearch will have as the first callback parameter
+        // the string searched and for the second the results.
+        console.log(string, results)
+    }
+
+    const handleOnHover = (result: IRecipe) => {
+        // the item hovered
+        console.log(result)
+    }
+
+    const handleOnSelect = (item: IRecipe) => {
+        // the item selected
+        console.log(item)
+        setSearchQuery(item.name)
+    }
+
+    const handleOnFocus = () => {
+        console.log('Focused')
+        setSearchQuery("")
+    }
+
+    const formatResult = (item: IRecipe) => {
+        return (
+            <>
+                <span style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
+            </>
+        )
+    }
 
     return (
         <>
@@ -30,42 +67,38 @@ const AmealoNavBar: FunctionComponent<IProps> = ({ searchQuery, setSearchQuery }
                                 </li>
                             </ul>
                         </div>
-                        <div className="me-auto" style={{ width: "65%" }}>
+                        <div className="me-auto" style={{ width: "60%" }}>
                             <ul className="navbar-nav mb-2 mb-lg-0">
-                                <li className="nav-item dropdown" style={{ width: "100%" }}>
-                                    <div className="input-group me-auto" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <input
-                                            type="search"
-                                            className="form-control"
-                                            placeholder="Search Recipes..."
-                                            value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
-                                            onClick={() => console.log('Open suggestions')}
-                                        />
-                                    </div>
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ width: "100%" }}>
-                                        <div className="list-group list-group-flush">
-                                            <a href="#" className="list-group-item list-group-item-action">A simple default list group item</a>
-                                            <a href="#" className="list-group-item list-group-item-action">A simple default list group item</a>
-                                            <a href="#" className="list-group-item list-group-item-action">A simple default list group item</a>
-                                            <a href="#" className="list-group-item list-group-item-action">A simple default list group item</a>
-                                        </div>
-                                    </div>
+                                <li className="nav-item" style={{ width: "100%", zIndex: "999" }}>
+                                    <ReactSearchAutocomplete
+                                        items={recipeObjectsArray}
+                                        showNoResults={false}
+                                        onClear={handleOnClear}
+                                        onSearch={handleOnSearch}
+                                        onHover={handleOnHover}
+                                        onSelect={handleOnSelect}
+                                        onFocus={handleOnFocus}
+                                        autoFocus
+                                        formatResult={formatResult}
+                                        className="dropdown"
+                                        placeholder="Search for recipes"
+                                        fuseOptions={
+                                            {
+                                                keys: ["name"],
+                                                minMatchCharLength: 2
+                                            }
+                                        }
+                                        styling={
+                                            {
+                                                height: "35px",
+                                                fontSize: "14px"
+                                            }
+                                        }
+
+                                    />
                                 </li>
                             </ul>
                         </div>
-                        {/* <div className="input-group me-auto" role="search" style={{ width: "65%" }}>
-                            <input
-                                type="search"
-                                name="search-form"
-                                id="search-form"
-                                className="form-control"
-                                placeholder="Search Recipes..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                onClick={() => console.log('Open suggestions')}
-                            />
-                        </div> */}
                         <div className=''>
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
@@ -78,7 +111,7 @@ const AmealoNavBar: FunctionComponent<IProps> = ({ searchQuery, setSearchQuery }
                         </div>
                     </div>
                 </div>
-            </nav>
+            </nav >
         </>
     );
 }

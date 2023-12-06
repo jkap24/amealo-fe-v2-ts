@@ -17,7 +17,7 @@ const FilterRecipes: FunctionComponent = () => {
 
     const [recipeObjectsArray] = useState<IRecipe[]>(AmealoRecipeData.amealoRecipes)
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const [searchParam] = useState<string[]>(["name", "DietType", "mealTime", "ingredients"]) // add more keys from recipe data if you want to search by it.
+    const [searchParam] = useState<string[]>(["name"]) // add more keys from recipe data if you want to search by it.
     const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
 
 
@@ -46,11 +46,14 @@ const FilterRecipes: FunctionComponent = () => {
             );
     }
 
-    const filteredRecipes = filterRecipesByIngredientId(recipeObjectsArray, selectedIngredients);
+    const filteredRecipes: IRecipe[] = filterRecipesByIngredientId(recipeObjectsArray, selectedIngredients);
 
     return (
         <>
-            <AmealoNavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <AmealoNavBar
+                recipeObjectsArray={filteredRecipes}
+                setSearchQuery={setSearchQuery}
+            />
             <div className='container'>
                 <RecipeDropdownFilter
                     name="Ingredients"
@@ -59,8 +62,9 @@ const FilterRecipes: FunctionComponent = () => {
                 />
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                     {search(filteredRecipes).map((recipe: IRecipe) => {
+                        console.log(recipe.name);
                         return (
-                            <RecipeCard recipe={recipe}/>
+                            <RecipeCard recipe={recipe} />
                         );
                     })}
                 </div>
