@@ -4,6 +4,7 @@ import RecipeCard from '../components/RecipeCard/RecipeCard';
 import { IRecipe } from '../types';
 import RecipeDropdownFilter from '../components/RecipeDropdownFilter/RecipeDropdownFilter';
 import AmealoNavBar from '../components/AmealoNavBar/AmealoNavBar';
+import StringDropdownFilter from '../components/StringDropdownFilter/StringDropdownFilter';
 
 // Filtering Functionality Initial Requirements
 
@@ -19,6 +20,7 @@ const FilterRecipes: FunctionComponent = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [searchParam] = useState<string[]>(["name"]) // add more keys from recipe data if you want to search by it.
     const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+    const [selectedmealTime, setSelectedmealTime] = useState<string[]>([]);
 
 
     function search(items: any[]) {
@@ -59,6 +61,11 @@ const FilterRecipes: FunctionComponent = () => {
                     name="Ingredients"
                     setSelectedIngredients={setSelectedIngredients}
                     selectedIngredients={selectedIngredients}
+                />
+                <StringDropdownFilter
+                    name="Meal"
+                    setSelectedStringValues={setSelectedmealTime}
+                    selectedStringValues={selectedmealTime}
                 />
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                     {search(filteredRecipes).map((recipe: IRecipe) => {

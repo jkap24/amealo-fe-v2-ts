@@ -1,19 +1,19 @@
 // A searchable dropdown filter for string values - make this extendable
 import { FunctionComponent, useState } from 'react';
-import IngredientsData from '../../data/ingredients-data';
-import { IIngredient } from '../../types';
+import AmealoRecipeData from '../../data/amealo-recipe-data';
+import { IRecipe } from '../../types';
 
 interface IProps {
     name: string
-    selectedIngredients: string[]
-    setSelectedIngredients: React.Dispatch<React.SetStateAction<string[]>>
+    selectedStringValues: string[]
+    setSelectedStringValues: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const RecipeDropdownFilter: FunctionComponent<IProps> = ({ name, selectedIngredients, setSelectedIngredients }) => {
-    const [ingredientsData] = useState<IIngredient[]>(IngredientsData.ingredients)
-    const [checkedIngredients, setCheckedIngredients] = useState<string[]>([]);
+const StringDropdownFilter: FunctionComponent<IProps> = ({ name, setSelectedStringValues }) => {
+    const [amealoRecipeData] = useState<IRecipe[]>(AmealoRecipeData.amealoRecipes)
+    const [checkedStrings, setCheckedStrings] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const [searchParam] = useState<string[]>(["name"]) // add more keys from recipe data if you want to search by it.
+    const [searchParam] = useState<string[]>(["mealTime"]) // add more keys from recipe data if you want to search by it.
 
     function search(items: any[]) {
         return items.filter((item: any) => {
@@ -28,12 +28,12 @@ const RecipeDropdownFilter: FunctionComponent<IProps> = ({ name, selectedIngredi
         });
     }
 
-    function handleIngredientSelected(ingredientName: string) {
+    function handleStringSelected(searchParameter: string) {
         // adds to the array if its not already there, removes if it is
-        checkedIngredients.includes(ingredientName) ? checkedIngredients.splice(checkedIngredients.indexOf(ingredientName), 1) : checkedIngredients.push(ingredientName)
-        setCheckedIngredients(checkedIngredients)
-        const newArray = Array.from(checkedIngredients)
-        setSelectedIngredients(newArray)
+        checkedStrings.includes(searchParameter) ? checkedStrings.splice(checkedStrings.indexOf(searchParameter), 1) : checkedStrings.push(searchParameter)
+        setCheckedStrings(checkedStrings)
+        const newArray = Array.from(checkedStrings)
+        setSelectedStringValues(newArray)
     }
     return (
         <div className="mb-2 mt-4">
@@ -46,7 +46,7 @@ const RecipeDropdownFilter: FunctionComponent<IProps> = ({ name, selectedIngredi
                         <input
                             className="form-control me-2"
                             type="search"
-                            placeholder="Search Ingredients..."
+                            placeholder="Search {change to a prop}..."
                             value={searchQuery}
                             aria-label="Search"
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -54,20 +54,20 @@ const RecipeDropdownFilter: FunctionComponent<IProps> = ({ name, selectedIngredi
                     </form>
                 </div>
                 <div className="list-group list-group-flush" style={{ maxHeight: "10rem", overflow: "scroll" }}>
-                    {search(ingredientsData).map((ingredient: IIngredient, index: number) => {
-                        const ingredientId = ingredient.ingredient_id
-                        const ingredientName = ingredient.name
+                    {search(amealoRecipeData).map((recipe: IRecipe, index: number) => {
+                        const recipeId = recipe.id
+                        const searchParameter = recipe.mealTime
                         return (
                             <label className="list-group-item">
                                 <input
                                     className="form-check-input me-1"
                                     type="checkbox"
-                                    id={String(ingredientId)}
-                                    value={ingredientName}
-                                    onChange={(e) => handleIngredientSelected(e.target.value)}
+                                    id={String(recipeId)}
+                                    value={searchParameter}
+                                    onChange={(e) => handleStringSelected(e.target.value)}
                                     key={index}
                                 />
-                                {ingredientName}
+                                {searchParameter}
                             </label>
                         )
                     })}
@@ -77,4 +77,4 @@ const RecipeDropdownFilter: FunctionComponent<IProps> = ({ name, selectedIngredi
     );
 }
 
-export default RecipeDropdownFilter;
+export default StringDropdownFilter;

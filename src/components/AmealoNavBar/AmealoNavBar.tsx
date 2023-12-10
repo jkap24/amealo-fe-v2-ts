@@ -2,7 +2,6 @@ import { FunctionComponent } from "react";
 import { IRecipe } from '../../types';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
-
 interface IProps {
     recipeObjectsArray: IRecipe[]
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>
