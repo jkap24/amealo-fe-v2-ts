@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import AmealoRecipeData from '../data/amealo-recipe-data';
 import RecipeCard from '../components/RecipeCard/RecipeCard';
 import { IRecipe } from '../types';
@@ -16,11 +16,18 @@ import StringDropdownFilter from '../components/StringDropdownFilter/StringDropd
 
 const FilterRecipes: FunctionComponent = () => {
 
-    const [recipeObjectsArray] = useState<IRecipe[]>(AmealoRecipeData.amealoRecipes)
+    const [recipeObjectsArray, setRecipeObjectsArray] = useState<IRecipe[]>(AmealoRecipeData.amealoRecipes)
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [searchParam] = useState<string[]>(["name"]) // add more keys from recipe data if you want to search by it.
     const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
     const [selectedmealTime, setSelectedmealTime] = useState<string[]>([]);
+    const [resultsFound, setResultsFound] = useState(true);
+
+    const [cuisines, setCuisines] = useState([
+        { id: 1, checked: false, label: 'American' },
+        { id: 2, checked: false, label: 'Chinese' },
+        { id: 3, checked: false, label: 'Italian' },
+    ]);
 
 
     function search(items: any[]) {
@@ -48,7 +55,55 @@ const FilterRecipes: FunctionComponent = () => {
             );
     }
 
-    const filteredRecipes: IRecipe[] = filterRecipesByIngredientId(recipeObjectsArray, selectedIngredients);
+    const applyFilters = () => {
+        let updatedRecipeArray = recipeObjectsArray;
+
+        // // Rating Filter
+        // if (selectedRating) {
+        //     updatedList = updatedList.filter(
+        //         (item) => parseInt(item.rating) === parseInt(selectedRating)
+        //     );
+        // }
+
+        // // Category Filter
+        // if (selectedCategory) {
+        //     updatedList = updatedList.filter(
+        //         (item) => item.category === selectedCategory
+        //     );
+        // }
+
+        // // Cuisine Filter
+        // const cuisinesChecked = cuisines
+        //     .filter((item) => item.checked)
+        //     .map((item) => item.label.toLowerCase());
+
+        // if (cuisinesChecked.length) {
+        //     updatedList = updatedList.filter((item) =>
+        //         cuisinesChecked.includes(item.cuisine)
+        //     );
+        // }
+
+        // Search Filter
+        if (selectedIngredients.length === 0) {
+            return updatedRecipeArray
+        } else
+            updatedRecipeArray = updatedRecipeArray.filter(recipe => {
+                return recipe.ingredients.some((ingredient: { name: string; }) => selectedIngredients.includes(ingredient.name))
+            });
+
+        return updatedRecipeArray
+
+        // setRecipeObjectsArray(updatedRecipeArray);
+
+        // !updatedRecipeArray.length ? setResultsFound(false) : setResultsFound(true);
+    };
+
+    useEffect(() => {
+        applyFilters();
+      }, [selectedIngredients]);
+
+    // const filteredRecipes: IRecipe[] = filterRecipesByIngredientId(recipeObjectsArray, selectedIngredients);
+    const filteredRecipes: IRecipe[] = applyFilters();
 
     return (
         <>
