@@ -43,18 +43,6 @@ const FilterRecipes: FunctionComponent = () => {
         });
     }
 
-    // Function to filter recipes based on ingredient IDs
-    function filterRecipesByIngredientId(recipes: IRecipe[], ingredients: string[]) {
-        if (ingredients.length === 0) {
-            return recipes;
-        } else
-            return recipes.filter(recipe => {
-                return recipe.ingredients.some((ingredient: { name: string; }) => ingredients.includes(ingredient.name))
-            }
-
-            );
-    }
-
     const applyFilters = () => {
         let updatedRecipeArray = recipeObjectsArray;
 
@@ -72,6 +60,14 @@ const FilterRecipes: FunctionComponent = () => {
         //     );
         // }
 
+        // Mealtime Filter
+        if (selectedmealTime.length) {
+            updatedRecipeArray = updatedRecipeArray.filter(recipe => selectedmealTime.includes(recipe.mealTime))
+        } 
+            
+            
+
+
         // // Cuisine Filter
         // const cuisinesChecked = cuisines
         //     .filter((item) => item.checked)
@@ -83,15 +79,22 @@ const FilterRecipes: FunctionComponent = () => {
         //     );
         // }
 
-        // Search Filter
-        if (selectedIngredients.length === 0) {
-            return updatedRecipeArray
-        } else
+        // Ingredients Filter
+        if (selectedIngredients.length) {
             updatedRecipeArray = updatedRecipeArray.filter(recipe => {
                 return recipe.ingredients.some((ingredient: { name: string; }) => selectedIngredients.includes(ingredient.name))
             });
-
+        } 
         return updatedRecipeArray
+            
+        // if (selectedIngredients.length === 0) {
+        //     return updatedRecipeArray
+        // } else
+        //     updatedRecipeArray = updatedRecipeArray.filter(recipe => {
+        //         return recipe.ingredients.some((ingredient: { name: string; }) => selectedIngredients.includes(ingredient.name))
+        //     });
+
+        // return updatedRecipeArray
 
         // setRecipeObjectsArray(updatedRecipeArray);
 
