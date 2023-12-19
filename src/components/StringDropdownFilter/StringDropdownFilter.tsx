@@ -5,15 +5,20 @@ import { IRecipe } from '../../types';
 
 interface IProps {
     name: string
+    filterParameter: string
     selectedStringValues: string[]
     setSelectedStringValues: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const StringDropdownFilter: FunctionComponent<IProps> = ({ name, setSelectedStringValues }) => {
+interface IStringIndex {
+    [key: string]: any
+}
+
+const StringDropdownFilter: FunctionComponent<IProps> = ({ name, filterParameter, setSelectedStringValues }) => {
     const [amealoRecipeData] = useState<IRecipe[]>(AmealoRecipeData.amealoRecipes)
     const [checkedStrings, setCheckedStrings] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const [searchParam] = useState<string[]>(["mealTime"]) // add more keys from recipe data if you want to search by it.
+    const [searchParam] = useState<string[]>([filterParameter])
 
     function search(items: any[]) {
         return items.filter((item: any) => {
@@ -35,6 +40,10 @@ const StringDropdownFilter: FunctionComponent<IProps> = ({ name, setSelectedStri
         const newArray = Array.from(checkedStrings)
         setSelectedStringValues(newArray)
     }
+
+    // used as part of the check for unique values within dropdown box
+    let uniqueValues: string[] = [];
+
     return (
         <div className="mb-2 mt-4">
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,7 +55,7 @@ const StringDropdownFilter: FunctionComponent<IProps> = ({ name, setSelectedStri
                         <input
                             className="form-control me-2"
                             type="search"
-                            placeholder="Search {change to a prop}..."
+                            placeholder={`Search ${name} ...`}
                             value={searchQuery}
                             aria-label="Search"
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -54,23 +63,27 @@ const StringDropdownFilter: FunctionComponent<IProps> = ({ name, setSelectedStri
                     </form>
                 </div>
                 <div className="list-group list-group-flush" style={{ maxHeight: "10rem", overflow: "scroll" }}>
-                    {search(amealoRecipeData).map((recipe: IRecipe, index: number) => {
-                        const recipeId = recipe.id
-                        const searchParameter = recipe.mealTime
-                        return (
-                            <label className="list-group-item">
-                                <input
-                                    className="form-check-input me-1"
-                                    type="checkbox"
-                                    id={String(recipeId)}
-                                    value={searchParameter}
-                                    onChange={(e) => handleStringSelected(e.target.value)}
-                                    key={index}
-                                />
-                                {searchParameter}
-                            </label>
-                        )
-                    })}
+                    {
+                        search(amealoRecipeData).map((recipe: IStringIndex, index: number) => {
+                            const recipeId = recipe.id
+                            const searchParameter: string = recipe[filterParameter]
+                            if (!uniqueValues.includes(searchParameter)) {
+                                uniqueValues.push(searchParameter)
+                                return (
+                                    <label className="list-group-item">
+                                        <input
+                                            className="form-check-input me-1"
+                                            type="checkbox"
+                                            id={String(recipeId)}
+                                            value={searchParameter}
+                                            onChange={(e) => handleStringSelected(e.target.value)}
+                                            key={index}
+                                        />
+                                        {searchParameter}
+                                    </label>
+                                )
+                            } else return null;
+                        })}
                 </div>
             </div>
         </div>

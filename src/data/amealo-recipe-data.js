@@ -19,9 +19,23 @@ const AmealoRecipeData = {
             "appliances": [], 
             "recommendedProducts": [],
             "DietaryRequirements": ["Chrohns Friendly"],
-            "DietType": [],
+            "DietType": [
+                {
+                    "id": 1,
+                    "name": "High Protein",
+                },
+                {
+                    "id": 3,
+                    "name": "Gluten Free",
+                },
+            ],
             "CookingMethod": ["bake"],
-            "cuisine": "English"
+            "cuisine": [
+                {
+                    "id": 2,
+                    "name": "English",
+                },
+            ]
 
         },
         {
@@ -40,9 +54,19 @@ const AmealoRecipeData = {
             "appliances": [], 
             "recommendedProducts": [],
             "DietaryRequirements": [],
-            "DietType": ["High Protein"],
+            "DietType": [
+                {
+                    "id": 1,
+                    "name": "High Protein",
+                },
+            ],
             "CookingMethod": [],
-            "cuisine": "Italian"
+            "cuisine": [
+                {
+                    "id": 4,
+                    "name": "Italian",
+                },
+            ]
         },
         {
             "id": 3,
@@ -60,9 +84,19 @@ const AmealoRecipeData = {
             "appliances": [], 
             "recommendedProducts": [],
             "DietaryRequirements": [],
-            "DietType": [],
+            "DietType": [
+                {
+                    "id": 1,
+                    "name": "High Protein",
+                },
+            ],
             "CookingMethod": ["High Protein"],
-            "cuisine": ""
+            "cuisine": [
+                {
+                    "id": 2,
+                    "name": "English",
+                },
+            ]
         },
         {
             "id": 4,
@@ -80,9 +114,19 @@ const AmealoRecipeData = {
             "appliances": [], 
             "recommendedProducts": [],
             "DietaryRequirements": [],
-            "DietType": [],
+            "DietType": [
+                {
+                    "id": 2,
+                    "name": "Low Fat",
+                },
+            ],
             "CookingMethod": ["Evil", "shit"],
-            "cuisine": ""
+            "cuisine": [
+                {
+                    "id": 1,
+                    "name": "American",
+                },
+            ]
         },
     ]
         

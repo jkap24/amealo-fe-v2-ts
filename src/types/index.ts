@@ -12,9 +12,15 @@ export interface IRecipe {
     appliances: string[];
     recommendedProducts: string[];
     DietaryRequirements: string[];
-    DietType: string[];
+    DietType: {
+        id: number;
+        name: string;
+    }[];
     CookingMethod: string[];
-    cuisine: string;
+    cuisine: {
+        id: number;
+        name: string;
+    }[];
 }
 
 export interface IIngredient {
